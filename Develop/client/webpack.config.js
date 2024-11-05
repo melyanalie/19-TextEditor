@@ -18,12 +18,49 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-      
+      new HtmlWebpackPlugin({
+        template: './src/index.html',
+        title: 'My PWA',
+      }),
+
+      new WebpackPwaManifest({
+        name: 'My Progressive Web App',
+        short_name: 'PWA',
+        description: 'A PWA example project',
+        background_color: '#ffffff',
+        theme_color: '#000000',
+        icons: [
+          {
+            src: path.resolve('src/images/icon.png'),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join('assets', 'icons'),
+          },
+        ],
+      }),
+
+      new InjectManifest({
+        swSrc: './src/sw.js',
+        swDest: 'service-worker.js',
+      }),
     ],
 
     module: {
       rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: 'babel-loader',
+        },
         
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+        },
+
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/,
+          use: ['file-loader'],
+        },
       ],
     },
   };
