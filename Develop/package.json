@@ -4,15 +4,15 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start:dev": "",
-    "start": "",
-    "server": "",
-    "build": "",
-    "install": "",
-    "client": ""
+    "start:dev": "nodemon server.js",
+    "start": "node server.js",
+    "server": "nodemon server.js --ignore client",
+    "build": "npm install --omit=dev && npm run build",
+    "install": "npm install",
+    "client": "cd client && npm start"
   },
   "keywords": [],
-  "author": "",
+  "author": "Melyana Lie",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
